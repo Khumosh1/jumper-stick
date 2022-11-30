@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html onclick="jump()">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hello Bulma!</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <section class="hero is-success is-fullheight">
+    <p>Score: <span id="scoreSpan"></span></p>
+    <div class="game">
+      <div id="character"></div>
+      <div id="block"></div>
+    </div>
+  </section>
+</body>
+<script>
+  var character = document.getElementById("character");
+  var block = document.getElementById("block");
+  var counter = 0;
+
+  function jump() {
+    if (character.classList == "animate") {
+      return
+    }
+    character.classList.add("animate");
+    setTimeout(function() {
+      character.classList.remove("animate");
+    }, 300);
+  }
+  var checkDead = setInterval(function() {
+    let characterTop = parseInt(window.getComputedStyle(character).getPropertyValue("top"));
+    let blockLeft = parseInt(window.getComputedStyle(block).getPropertyValue("left"));
+    if (blockLeft < 20 && blockLeft > -20 && characterTop >= 130) {
+      block.style.animation = "none";
+      alert("Yedingmi mazgi 😜😜😜😜. score: "+Math.floor(counter/100));
+      counter = 0;
+      block.style.animation = "block 1s infinite linear";
+    } else {
+      counter++;
+      document.getElementById("scoreSpan").innerHTML = Math.floor(counter / 100);
+    }
+  }, 10);
+</script>
+
+</html>
